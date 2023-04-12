@@ -1,6 +1,7 @@
 ﻿using CustomEmbroideryOrderTracker_MVC.Models;
 using Dapper;
 using System.Data;
+using System.Drawing;
 using System.Runtime.InteropServices;
 
 namespace CustomEmbroideryOrderTracker_MVC
@@ -15,26 +16,49 @@ namespace CustomEmbroideryOrderTracker_MVC
 		}
 
 
-		public Product AssignCategory()
+		public Product StartNewProduct()
 		{
-			var categoryList = GetCategories();
-			var product = new Product();
-			product.Categories = categoryList;
+            var product = new Product();
+
+            var articleList = GetAllArticles();
+			product.Articles = articleList;
+
+			var colorsList = GetAllColors();
+			product.Colors = colorsList;
+
+			var sizesList = GetAllSizes();
+			product.Sizes = sizesList;
 
 			return product;
 		}
 
 		public IEnumerable<Product> GetAllProducts()
 		{
-			return _conn.Query<Product>("Select * From products;");
+			var allProducts = _conn.Query<Product>("Select * From products;");
+			foreach(var product in allProducts)
+			{
+				product.ColorName = GetColorName(product.ColorID);
+				product.ArticleName = GetArticleName(product.ArticleID);
+				product.SizeName = GetSizeName(product.SizeID);
+			}
+            return allProducts;
 		}
 
-		public IEnumerable<Category> GetCategories()
+		public IEnumerable<Article> GetAllArticles()
 		{
-			return _conn.Query<Category>("SELECT * FROM categories;");
+			return _conn.Query<Article>("SELECT * FROM articles;");
+		}
+        public IEnumerable<Models.Color> GetAllColors()
+		{
+			return _conn.Query<Models.Color>("SELECT * FROM colors");
 		}
 
-		public Product GetProduct(int id)
+        public IEnumerable<Models.Size> GetAllSizes()
+        {
+            return _conn.Query<Models.Size>("SELECT * FROM sizes");
+        }
+
+        public Product GetProduct(int id)
 		{
 			return _conn.QuerySingle<Product>("SELECT * FROM PRODUCTS WHERE PRODUCTID = @id", 
 				new { id = id});
@@ -42,8 +66,13 @@ namespace CustomEmbroideryOrderTracker_MVC
 
 		public void InsertProduct(Product productToInsert)
 		{
-			_conn.Execute("INSERT INTO products (NAME, PRICE, CATEGORYID) VALUES (@name, @price, @categoryID);",
-				new { name = productToInsert.Name, price = productToInsert.Price, categoryID = productToInsert.CategoryID });
+			_conn.Execute("INSERT INTO products (NAME, PRICE, STOCKLEVEL, ARTICLEID, SIZEID, COLORID) VALUES (@name, @price, @stockLevel, @articleID, @sizeID, @colorID);",
+				new {	name = productToInsert.Name, 
+						price = productToInsert.Price, 
+						stockLevel = productToInsert.StockLevel, 
+						articleID = productToInsert.ArticleID, 
+						sizeID = productToInsert.SizeID, 
+						colorID = productToInsert.ColorID });
 		}
 
 		public void UpdateProduct(Product product)
@@ -51,5 +80,21 @@ namespace CustomEmbroideryOrderTracker_MVC
 			_conn.Execute("UPDATE products SET Name = @name, Price = @price WHERE ProductID = @id",
 				new { name = product.Name, price = product.Price, id = product.ProductID});
 		}
-	}
+
+        public String GetColorName(int colorId)
+		{
+            return _conn.QuerySingle<Models.Color>("SELECT * FROM COLORS WHERE ID = @id",
+                    new { id = colorId }).ColorName;
+        }
+        public String GetSizeName(int sizeId)
+		{
+            return _conn.QuerySingle<Models.Size>("SELECT * FROM SIZES WHERE ID = @id",
+                        new { id = sizeId }).SizeName;
+        }
+        public string GetArticleName(int articleId)
+		{
+            return _conn.QuerySingle<Models.Article>("SELECT * FROM ARTICLES WHERE ID = @id",
+                        new { id = articleId }).ArticleName;
+        }
+    }
 }

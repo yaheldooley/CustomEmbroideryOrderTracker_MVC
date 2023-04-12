@@ -45,7 +45,7 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
 
 		public IActionResult InsertProduct()
 		{
-			var prod = repo.AssignCategory();
+			var prod = repo.StartNewProduct();
 
 			return View(prod);
 		}

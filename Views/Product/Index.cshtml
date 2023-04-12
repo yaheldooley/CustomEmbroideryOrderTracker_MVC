@@ -1,5 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Product>
+
+<h2>Products</h2>
+
+<div style="display: flex; justify-content: center;" class="nav-item">
+    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="InsertProduct">Add</a></h3>
+    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">View</a></h3>
+    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Remove">Remove</a></h3>
+    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Update">Update</a></h3>
+</div>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Article</th>
+        <th>Stock Level</th>
+    </tr>
+
+    @foreach (var product in @Model)
+    {
+        <tr>
+            <td>@product.ProductID</td>
+            <td>@product.Name</td>
+            <td>@product.Price</td>
+            <td>@product.ColorName</td>
+            <td>@product.SizeName</td>
+            <td>@product.ArticleName</td>
+            <td>@product.StockLevel</td>
+        </tr>
+    }
+
+</table>

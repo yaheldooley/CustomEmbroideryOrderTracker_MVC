@@ -8,8 +8,15 @@ namespace CustomEmbroideryOrderTracker_MVC
 		public Product GetProduct(int id);
 		public void UpdateProduct(Product product);
 		public void InsertProduct(Product productToInsert);
-		public IEnumerable<Category> GetCategories();
-		public Product AssignCategory();
+        public Product StartNewProduct();
+        public IEnumerable<Article> GetAllArticles();
+		public IEnumerable<Color> GetAllColors();
+		public IEnumerable<Size> GetAllSizes();
+
+		public String GetColorName(int colorId);
+		public String GetSizeName(int sizeId);
+		public string GetArticleName(int articleId);
+		
 
 	}
 }
