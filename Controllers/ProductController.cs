@@ -44,6 +44,8 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
 			return RedirectToAction("ViewProduct", new { id = product.ProductID });
 		}
 
+
+
 		public IActionResult InsertProduct()
 		{
 			var prod = repo.StartNewProduct();
@@ -57,5 +59,12 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
 
 			return RedirectToAction("Index");
 		}
-	}
+
+        public IActionResult RemoveProductFromDatabase(int id)
+        {
+            repo.DeleteProduct(id);
+
+            return RedirectToAction("Index");
+        }
+    }
 }
