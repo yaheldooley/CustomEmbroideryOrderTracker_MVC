@@ -2,15 +2,11 @@
 
 <h2>Products</h2>
 
-<div style="display: flex; justify-content: center;" class="nav-item">
-    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="InsertProduct">Add</a></h3>
-    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Add">View</a></h3>
-    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Remove">Remove</a></h3>
-    <h3><a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Update">Update</a></h3>
-</div>
+<td><a href=/Product/InsertProduct/>NEW</a></td>
 
 <table class="table">
     <tr>
+        <th></th>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
@@ -23,6 +19,7 @@
     @foreach (var product in @Model)
     {
         <tr>
+            <td><a href=/Product/ViewProduct/@product.ProductID>UPDATE</a></td>
             <td>@product.ProductID</td>
             <td>@product.Name</td>
             <td>@product.Price</td>

@@ -1,0 +1,69 @@
+﻿@model Product
+
+<h2>Update Product</h2>
+@using (Html.BeginForm("UpdateProductToDatabase", "Product", "Post"))
+{
+
+    <input asp-for="ProductID" type="hidden" value="@Model.ProductID" />
+
+    <label asp-for="Name" class="control-label">Name</label>
+    <input type="text" name="Name" class="form-control" value="@Model.Name" />
+
+    <label asp-for="Price" class="control-label">Price</label>
+    <input type="number" step="0.01" name="Price" class="form-control" value="@Model.Price" />
+
+    <label asp-for="StockLevel" class="control-label">StockLevel</label>
+    <input type="number" step="1" name="StockLevel" class="form-control" value="@Model.StockLevel"/>
+
+    <div class="form-group">
+        <label for="">Select Article</label>
+        <select class="form-control" name="ArticleID" value= document.getElementById('personlist').value =@Model.ArticleID>
+            @foreach (var article in Model.Articles)
+            {
+                @if (article.ID == Model.ArticleID)
+                {
+                    <option value="@article.ID" selected>@article.ID - @article.ArticleName</option>
+                }
+                else
+                {
+                    <option value="@article.ID">@article.ID - @article.ArticleName</option>
+                }
+            }
+        </select>
+        <></>
+        
+        <label for="">Select Color</label>
+        <select class="form-control" name="ColorID" value="@Model.ColorID">
+            @foreach (var color in Model.Colors)
+            {
+                @if (color.ID == Model.ColorID)
+                {
+                    <option value="@color.ID" selected>@color.ID - @color.ColorName</option>
+                }
+                else
+                {
+                    <option value="@color.ID">@color.ID - @color.ColorName</option>
+                }
+            }
+        </select>
+
+        <label for="">Select Size</label>
+        <select class="form-control" name="SizeID" value="@Model.SizeID">
+            @foreach (var size in Model.Sizes)
+            {
+                @if (size.ID == Model.SizeID)
+                {
+                    <option value="@size.ID" selected>@size.ID - @size.SizeName</option>
+                }
+                else
+                {
+                    <option value="@size.ID">@size.ID - @size.SizeName</option>
+                }
+                
+            }
+        </select>
+    </div>
+
+
+    <input type="submit" value="Update Product" class="btn btn-primary" />
+}

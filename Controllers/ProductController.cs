@@ -32,6 +32,7 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
 			{
 				return View("Product not found");
 			}
+			else repo.GetAllProductOptions(prod);
 
 			return View(prod);
 		}

@@ -19,20 +19,23 @@ namespace CustomEmbroideryOrderTracker_MVC
 		public Product StartNewProduct()
 		{
             var product = new Product();
-
-            var articleList = GetAllArticles();
-			product.Articles = articleList;
-
-			var colorsList = GetAllColors();
-			product.Colors = colorsList;
-
-			var sizesList = GetAllSizes();
-			product.Sizes = sizesList;
-
-			return product;
+			return GetAllProductOptions(product);
 		}
 
-		public IEnumerable<Product> GetAllProducts()
+        public Product GetAllProductOptions(Product product)
+		{
+            var articleList = GetAllArticles();
+            product.Articles = articleList;
+
+            var colorsList = GetAllColors();
+            product.Colors = colorsList;
+
+            var sizesList = GetAllSizes();
+            product.Sizes = sizesList;
+			return product;
+        }
+
+        public IEnumerable<Product> GetAllProducts()
 		{
 			var allProducts = _conn.Query<Product>("Select * From products;");
 			foreach(var product in allProducts)
@@ -60,25 +63,31 @@ namespace CustomEmbroideryOrderTracker_MVC
 
         public Product GetProduct(int id)
 		{
-			return _conn.QuerySingle<Product>("SELECT * FROM PRODUCTS WHERE PRODUCTID = @id", 
-				new { id = id});
+			var product = _conn.QuerySingle<Product>("SELECT * FROM PRODUCTS WHERE PRODUCTID = @id",
+				new { id = id });
+            product.ColorName = GetColorName(product.ColorID);
+            product.ArticleName = GetArticleName(product.ArticleID);
+            product.SizeName = GetSizeName(product.SizeID);
+            return product;
 		}
 
 		public void InsertProduct(Product productToInsert)
 		{
 			_conn.Execute("INSERT INTO products (NAME, PRICE, STOCKLEVEL, ARTICLEID, SIZEID, COLORID) VALUES (@name, @price, @stockLevel, @articleID, @sizeID, @colorID);",
-				new {	name = productToInsert.Name, 
+				new {	
+						name = productToInsert.Name, 
 						price = productToInsert.Price, 
 						stockLevel = productToInsert.StockLevel, 
 						articleID = productToInsert.ArticleID, 
 						sizeID = productToInsert.SizeID, 
-						colorID = productToInsert.ColorID });
+						colorID = productToInsert.ColorID 
+					});
 		}
 
 		public void UpdateProduct(Product product)
 		{
-			_conn.Execute("UPDATE products SET Name = @name, Price = @price WHERE ProductID = @id",
-				new { name = product.Name, price = product.Price, id = product.ProductID});
+			_conn.Execute("UPDATE products SET Name = @name, Price = @price, ColorID = @colorID, SizeID = @sizeID, ArticleID = @articleID WHERE ProductID = @id",
+			new { name = product.Name, price = product.Price, colorID = product.ColorID, sizeID =  product.SizeID, articleID = product.ArticleID, id = product.ProductID});
 		}
 
         public String GetColorName(int colorId)

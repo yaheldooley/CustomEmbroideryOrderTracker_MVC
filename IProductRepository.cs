@@ -9,6 +9,8 @@ namespace CustomEmbroideryOrderTracker_MVC
 		public void UpdateProduct(Product product);
 		public void InsertProduct(Product productToInsert);
         public Product StartNewProduct();
+
+		public Product GetAllProductOptions(Product product);
         public IEnumerable<Article> GetAllArticles();
 		public IEnumerable<Color> GetAllColors();
 		public IEnumerable<Size> GetAllSizes();

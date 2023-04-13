@@ -1,0 +1,30 @@
+﻿@model Product
+
+<h2>View Product</h2>
+
+<table class="table">
+    
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Color</th>
+        <th>Size</th>
+        <th>Article</th>
+        <th>Stock Level</th>
+    </tr>
+
+    <tr>
+        <td>@Model.ProductID</td>
+        <td>@Model.Name</td>
+        <td>@Model.Price</td>
+        <td>@Model.ColorName</td>
+        <td>@Model.SizeName</td>
+        <td>@Model.ArticleName</td>
+        <td>@Model.StockLevel</td>
+    </tr>
+
+</table>
+<td><a href=/Product/UpdateProduct/@Model.ProductID>Update</a></td>
+<td>&nbsp;&nbsp;&nbsp;</td>
+<td><a href=/Product/UpdateProduct/@Model.ProductID>Delete</a></td>
