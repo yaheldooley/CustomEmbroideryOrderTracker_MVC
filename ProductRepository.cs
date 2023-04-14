@@ -1,8 +1,6 @@
 ﻿using CustomEmbroideryOrderTracker_MVC.Models;
 using Dapper;
 using System.Data;
-using System.Drawing;
-using System.Runtime.InteropServices;
 
 namespace CustomEmbroideryOrderTracker_MVC
 {

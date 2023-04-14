@@ -2,24 +2,22 @@
 
 <h2>Products</h2>
 
-<td><a href=/Product/InsertProduct/>NEW</a></td>
-
 <table class="table">
     <tr>
-        <th></th>
+        <th><a href=/Product/InsertProduct />NEW</a></th>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
         <th>Color</th>
         <th>Size</th>
         <th>Article</th>
-        <th>Stock Level</th>
+        <th>In Stock</th>
     </tr>
 
     @foreach (var product in @Model)
     {
         <tr>
-            <td><a href=/Product/ViewProduct/@product.ProductID>UPDATE</a></td>
+            <td><a href=/Product/ViewProduct/@product.ProductID>EDIT</a></td>
             <td>@product.ProductID</td>
             <td>@product.Name</td>
             <td>@product.Price</td>
