@@ -2,8 +2,10 @@
 
 namespace CustomEmbroideryOrderTracker_MVC
 {
-	public interface IProductRepository
+    public interface IProductRepository
 	{
+        #region Products
+
         #region Create Methods
         public Product StartNewProduct();
         public void InsertProduct(Product productToInsert);
@@ -27,6 +29,10 @@ namespace CustomEmbroideryOrderTracker_MVC
 
         public void UpdateProduct(Product product);
         public void DeleteProduct(int productID);
-       
+
+        #endregion
+
+        
     }
 }
+

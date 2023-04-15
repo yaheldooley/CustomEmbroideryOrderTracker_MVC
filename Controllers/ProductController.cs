@@ -44,8 +44,6 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
 			return RedirectToAction("ViewProduct", new { id = product.ProductID });
 		}
 
-
-
 		public IActionResult InsertProduct()
 		{
 			var prod = repo.StartNewProduct();

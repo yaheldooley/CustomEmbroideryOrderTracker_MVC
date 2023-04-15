@@ -4,7 +4,8 @@ using System.Data;
 
 namespace CustomEmbroideryOrderTracker_MVC
 {
-	public class ProductRepository : IProductRepository
+
+    public class ProductRepository : IProductRepository
 	{
 		private readonly IDbConnection _conn;
 
@@ -12,6 +13,8 @@ namespace CustomEmbroideryOrderTracker_MVC
 		{
 			_conn = conn;
 		}
+
+        #region Products
 
         #region Create
 
@@ -121,6 +124,10 @@ namespace CustomEmbroideryOrderTracker_MVC
 		}
 
         #endregion
+
+        #endregion
+
+
 
     }
 }
