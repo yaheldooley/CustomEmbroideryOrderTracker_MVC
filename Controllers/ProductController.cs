@@ -37,7 +37,7 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
 			return View(prod);
 		}
 
-		public IActionResult UpdateProductToDatabase(Product product)
+        public IActionResult UpdateProductToDatabase(Product product)
 		{
 			repo.UpdateProduct(product);
 

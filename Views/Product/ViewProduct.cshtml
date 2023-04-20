@@ -1,10 +1,10 @@
 ﻿@model Product
 
-<h2>View Product</h2>
+<h3 class="tableLabel">View Product</h3>
 
-<table class="table">
-    
+<table>
     <tr>
+        <th></th>
         <th>ID</th>
         <th>Name</th>
         <th>Price</th>
@@ -12,9 +12,11 @@
         <th>Size</th>
         <th>Article</th>
         <th>In Stock</th>
+        <th></th>
     </tr>
 
-    <tr>
+    <tr class="outline">
+        <td><a href=/Product/UpdateProduct/@Model.ProductID>UPDATE</a></td>
         <td>@Model.ProductID</td>
         <td>@Model.Name</td>
         <td>@Model.Price</td>
@@ -22,9 +24,8 @@
         <td>@Model.SizeName</td>
         <td>@Model.ArticleName</td>
         <td>@Model.StockLevel</td>
+        <td><a href=/Product/RemoveProductFromDatabase/@Model.ProductID>DELETE</a></td>
     </tr>
 
 </table>
-<td><a href=/Product/UpdateProduct/@Model.ProductID>Update</a></td>
-<td>&nbsp;&nbsp;&nbsp;</td>
-<td><a href=/Product/RemoveProductFromDatabase/@Model.ProductID>Delete</a></td>
+

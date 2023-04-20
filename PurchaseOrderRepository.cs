@@ -56,7 +56,6 @@ namespace CustomEmbroideryOrderTracker_MVC
                                 new { id = orderID });
             foreach (var order in workOrders)
             {
-                //order.Product = _prodRepo.GetProduct(order.ProductID);
                 order.Designs = GetDesigns(order.DesignID);
             }
 
@@ -69,14 +68,22 @@ namespace CustomEmbroideryOrderTracker_MVC
             foreach (var design in designs)
             {
                 design.LocationName = GetLocationName(design.LocationID);
+                design.WorkName = GetWorkName(design.WorkID);
             }
             return designs;
         }
 
         public string GetLocationName(int locationID)
         {
-            var location = _conn.QuerySingle<ApparelLocation>($"SELECT * FROM apparellocations WHERE id = @id;", new { id = locationID});
+            var location = _conn.QuerySingle<ApparelLocation>("SELECT * FROM apparellocations WHERE id = @id", new { id = locationID});
             if (location != null) return location.ApparelLocationName;
+            return "NULL";
+        }
+
+        public string GetWorkName(int workID)
+        {
+            var workName = _conn.QuerySingle<Work>("SELECT * FROM work WHERE id = @id", new { id = workID });
+            if (workName != null) return workName.WorkName;
             return "NULL";
         }
     }

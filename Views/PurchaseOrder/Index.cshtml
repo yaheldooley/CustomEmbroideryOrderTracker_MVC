@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PurchaseOrder>
 
-<h2>Purchase Orders</h2>
+<h3 class="tableLabel">Purchase Orders</h3>
 
-<table class="table">
+<table>
     <tr>
         <th><a href=/PurchaseOrder/InsertPurchaseOrder/>NEW</a></th>
         <th>ID</th>
         <th>Client Name</th>
-        <th>Shipping Info</th>
+        <th>Mailing Address</th>
         <th>Carrier Info</th>
         <th>Entered</th>
         <th>Due</th>
@@ -15,11 +15,11 @@
 
     @foreach (var purchaseOrder in @Model)
     {
-        <tr>
+        <tr class="outline">
             <td><a href=/PurchaseOrder/ViewOrder/@purchaseOrder.ID>VIEW</a></td>
             <td>@purchaseOrder.ID</td>
             <td>@purchaseOrder.ShippingInfo.FullName</td>
-            <td>@purchaseOrder.ShippingInfo.AddressOne, @purchaseOrder.ShippingInfo.City, @purchaseOrder.ShippingInfo.State</td>
+            <td>@purchaseOrder.ShippingInfo.AddressOne, @purchaseOrder.ShippingInfo.City, @purchaseOrder.ShippingInfo.State @purchaseOrder.ShippingInfo.ZipCode</td>
             <td>@purchaseOrder.CarrierInfo.Carrier, @purchaseOrder.CarrierInfo.TrackingNumber</td>
             <td>@purchaseOrder.DateEntered</td>
             <td>@purchaseOrder.DateDue</td>

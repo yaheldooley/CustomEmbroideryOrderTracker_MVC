@@ -11,6 +11,8 @@ namespace CustomEmbroideryOrderTracker_MVC
         public IEnumerable<WorkOrder> GetWorkOrders(int orderID);
         public IEnumerable<Design> GetDesigns(int designID);
         public string GetLocationName(int locationID);
+
+        public string GetWorkName(int workID);
     }
 }
 

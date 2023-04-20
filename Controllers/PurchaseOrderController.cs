@@ -6,10 +6,11 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
     public class PurchaseOrderController : Controller
     {
         private readonly IPurchaseOrderRepository repo;
-
-        public PurchaseOrderController(IPurchaseOrderRepository repo)
+        private readonly IProductRepository productRepo;
+        public PurchaseOrderController(IPurchaseOrderRepository repo, IProductRepository productRepo)
         {
             this.repo = repo;
+            this.productRepo = productRepo;
         }
 
         public IActionResult Index()
@@ -21,6 +22,10 @@ namespace CustomEmbroideryOrderTracker_MVC.Controllers
         public IActionResult ViewOrder(int id)
         {
             var purchaseOrder = repo.GetPurchaseOrder(id);
+            foreach(var order in purchaseOrder.WorkOrders)
+            {
+                order.Product = productRepo.GetProduct(order.ProductID);
+            }
             return View(purchaseOrder);
         }
 

@@ -6,6 +6,7 @@
         public int PurchaseOrderID { get; set; }
         public int ProductID { get; set; }
         public int DesignID { get; set; }
+        public int Count { get; set; }
 
         public Product Product { get; set; }
         public IEnumerable<Design> Designs { get; set; }
